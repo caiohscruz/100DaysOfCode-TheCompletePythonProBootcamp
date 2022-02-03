@@ -1,0 +1,53 @@
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+
+#Write your code below this line 👇
+import random
+
+options = [rock, paper, scissors]
+
+while True:
+  user_choice = input("What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors.")
+  if ((user_choice == "0") or (user_choice == "1") or (user_choice == "2")):
+    break
+  print("Invalid option")
+
+user_choice = int(user_choice)
+
+computer_choice = random.randint(0, 2)
+
+print(f"User's choice \n {options[user_choice]} \n")
+print(f"Computer's choice \n {options[computer_choice]} \n")
+
+if (user_choice == computer_choice):
+  result = "Draw"
+elif (user_choice == computer_choice + 1) or (user_choice == computer_choice - 2):
+  result = "You win"
+else:
+  result = "You lose"
+
+print(result)
