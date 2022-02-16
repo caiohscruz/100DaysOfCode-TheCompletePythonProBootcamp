@@ -12,9 +12,7 @@
 
 from functions import begin_game, deal_dealer_hand, deal_player_hand, pick_card, end_game
 
-continue_playing = True
-
-while continue_playing == True:
+def play_game():
   begin_game()
   dealer_hand = deal_dealer_hand()
   player_hand = deal_player_hand() 
@@ -27,5 +25,10 @@ while continue_playing == True:
     else:
       break;
   end_game(dealer_hand, player_hand)
+  
+continue_playing = True
+
+while continue_playing == True:
+  play_game()
   if (input("\nDo you want play more? Type 'y' or 'n': ") != 'y'):
     continue_playing = False

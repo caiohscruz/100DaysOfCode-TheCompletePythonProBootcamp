@@ -71,21 +71,23 @@ def compute_dealer_score(dealer_hand):
     dealer_points = compute_score(dealer_hand)
   return dealer_points
 
+def who_wins(dealer_points, player_points):
+  if (player_points > 21): 
+    return 'You lose.'
+  elif (player_points == dealer_points):
+    return 'Draw.'
+  elif (player_points == 0):
+    return 'Blackjack! You win.'
+  elif (dealer_points == 0):
+    return 'Blackjack! You lose.'
+  elif (player_points > dealer_points):
+    return 'You win.'
+  else:
+    return 'You lose.'
+
 def end_game(dealer_hand, player_hand): 
   dealer_points = compute_dealer_score(dealer_hand)
   player_points = compute_score(player_hand)
   print(f'\nComputer final hand: {draw_cards(dealer_hand)}')
   print(f'Your final hand: {draw_cards(player_hand)}\n')
-  if (player_points > 21): 
-    result = 'You lose.'
-  elif (player_points == dealer_points):
-    result = 'Draw.'
-  elif (player_points == 0):
-    result = 'Blackjack! You win.'
-  elif (dealer_points == 0):
-    result = 'Blackjack! You lose.'
-  elif (player_points > dealer_points):
-    result = 'You win.'
-  else:
-    result = 'You lose.'
-  print(result)
+  print(who_wins(dealer_points, player_points))
