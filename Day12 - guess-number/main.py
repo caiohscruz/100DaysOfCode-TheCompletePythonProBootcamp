@@ -1,20 +1,38 @@
-from art import logo
-
 import random
+from art import logo
 from replit import clear
 
-difficulty_options = {'easy' : 10, 'hard': 5}
+EASY_NUM_ATTEMPTS = 10
+HARD_NUM_ATTEMPTS = 5
 
-def play_game():
+DIFFICULTY_OPTIONS = {
+    'easy' : EASY_NUM_ATTEMPTS,
+    'hard': HARD_NUM_ATTEMPTS
+  }
+
+MIN_NUMBER = 1
+MAX_NUMBER = 100
+
+def setup_game():
   print(logo) 
   print("Welcome to the Number Guessing Game!")
-  print("I'm thinking of a number between 1 and 100")
-  number = random.randint(1,100)
+
+def set_number():
+  print(f"I'm thinking of a number between {MIN_NUMBER} and {MAX_NUMBER}")
+  return random.randint(MIN_NUMBER, MAX_NUMBER) 
+
+def get_attempts():
   choosen_difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ")
-  while choosen_difficulty not in difficulty_options:
+  while choosen_difficulty not in DIFFICULTY_OPTIONS:
     print("Option incorrect")
     choosen_difficulty = input("Choose a difficulty. Type 'easy' or 'hard': ")
-  attempts = difficulty_options[choosen_difficulty]
+  return DIFFICULTY_OPTIONS[choosen_difficulty]
+
+
+def play_game():
+  setup_game()
+  number = set_number()
+  attempts = get_attempts() 
   is_game_over = False
   while (not is_game_over):
     print(f"You have {attempts} attempts remaining to guess the number")
