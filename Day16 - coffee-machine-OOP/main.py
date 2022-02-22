@@ -9,7 +9,7 @@ menu = Menu()
 moneyMachine = MoneyMachine()
 
 while is_on:
-    entry = input("What would you like? (espresso/latte/cappuccino/): ")
+    entry = input(f"What would you like? ({menu.get_items()}): ")
     if entry == 'off':
         is_on = False
     elif entry == 'report':
