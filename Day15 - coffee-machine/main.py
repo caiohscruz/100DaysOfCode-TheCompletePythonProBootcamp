@@ -1,12 +1,14 @@
-from functions import is_order_valid, has_resources_available
+from functions import is_menu_option, print_report, process_order
 
-should_continue_operating = True
+is_on = True
 
-while should_continue_operating:
-    order = input("What would you like? (espresso/latte/cappuccino): ")
-    if not is_order_valid(order):
-        print("Sorry. We don't have that.")
-        continue
+while is_on:
+    entry = input("What would you like? (espresso/latte/cappuccino): ")
+    if entry == "off":
+        is_on = False
+    elif entry == 'report':
+        print_report()
+    elif is_menu_option(entry):
+        process_order(entry)
     else:
-        if not has_resources_available(order):
-            print("err")
+        print('Invalid option')
