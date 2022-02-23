@@ -36,16 +36,26 @@ def draw_shape(num_sides):
 #     draw_shape(num_sides)
 
 # TODO 4: Generate a random walk
-bob.pensize(10)
+# bob.pensize(10)
+# bob.speed("fastest")
+#
+# directions = [0, 90, 180, 270]
+#
+# num_steps = 100
+# for _ in range(num_steps):
+#     change_color()
+#     bob.forward(20)
+#     bob.setheading(random.choice(directions))
+
+# TODO 5: Draw a Spirograph
 bob.speed("fastest")
-
-directions = [0, 90, 180, 270]
-
-num_steps = 100
-for _ in range(num_steps):
+bob.hideturtle()
+num_loops = 100
+for _ in range(num_loops):
+    angle = 360 / num_loops
+    bob.right(angle)
     change_color()
-    bob.forward(20)
-    bob.setheading(random.choice(directions))
+    bob.circle(100)
 
 
 screen.exitonclick()
