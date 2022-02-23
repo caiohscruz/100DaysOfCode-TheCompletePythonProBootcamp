@@ -1,4 +1,5 @@
-from turtle import Turtle, Screen
+from turtle import *
+import random
 
 bob = Turtle()
 screen = Screen()
@@ -16,15 +17,13 @@ screen = Screen()
 #     bob.pendown()
 
 # TODO 3: Draw polygons
-import random
-
+colormode(255)
 
 def change_color():
-    red = random.random()
-    blue = random.random()
-    green = random.random()
-
-    bob.color(red, green, blue)
+    red = random.randint(0, 255)
+    blue = random.randint(0, 255)
+    green = random.randint(0, 255)
+    bob.color((red, green, blue))
 
 def draw_shape(num_sides):
     angle = 360 / num_sides
@@ -33,9 +32,20 @@ def draw_shape(num_sides):
         bob.forward(100)
         bob.right(angle)
 
+# for num_sides in range(3, 13):
+#     draw_shape(num_sides)
 
-for num_sides in range(3, 13):
-    draw_shape(num_sides)
+# TODO 4: Generate a random walk
+bob.pensize(10)
+bob.speed("fastest")
+
+directions = [0, 90, 180, 270]
+
+num_steps = 100
+for _ in range(num_steps):
+    change_color()
+    bob.forward(20)
+    bob.setheading(random.choice(directions))
 
 
 screen.exitonclick()
