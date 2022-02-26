@@ -76,7 +76,7 @@ class Snake:
             self.head.setheading(LEFT)
 
     def accelerate(self):
-        self.delay *= 0.9
+        self.delay *= 0.8
 
     def eats(self):
         self.get_bigger()

@@ -53,8 +53,8 @@ def is_out(head):
 
 
 def has_collisions(snake):
-    for index in range(1, snake.snake_length):
-        if snake.head.distance(snake.body[index]) < 10:
+    for part in snake.body[1:]:
+        if snake.head.distance(part) < 10:
             return True
     return False
 
