@@ -1,16 +1,22 @@
 from turtle import Screen
 from Snake import Snake
+from Food import Food
 
 # less delay is more speed
-INITIAL_DELAY = 0.5
+INITIAL_DELAY = 0.3
 
 screen = Screen()
-screen.setup(width=600, height=600)
+
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+
+screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
 screen.bgcolor("black")
 screen.title("Snake Game")
 screen.tracer(0)
 
 snake = Snake(INITIAL_DELAY)
+food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 screen.listen()
 screen.onkeypress(snake.heads_up, "Up")
@@ -21,5 +27,8 @@ screen.onkeypress(snake.heads_left, "Left")
 while True:
     screen.update()
     snake.move()
+    if snake.head.distance(food) < 10:
+        snake.eats()
+        food.refresh_position()
 
 screen.exitonclick()

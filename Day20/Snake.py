@@ -33,14 +33,16 @@ class Snake:
 
     @staticmethod
     def create_part():
-        part = Turtle(shape="square")
+        part = Turtle(shape="square", visible=False)
         part.penup()
+        part.speed("fastest")
         part.color(SNAKE_COLOR)
         return part
 
     def set_initial_position(self):
         for i in range(self.snake_length):
             self.body[i].goto(starting_positions[i])
+            self.body[i].showturtle()
 
     def move(self):
         time.sleep(self.delay)
@@ -52,6 +54,8 @@ class Snake:
         index = self.body.index(part)
         old_position = part.pos()
         part.goto(new_position)
+        if not part.isvisible():
+            part.showturtle()
         if index + 1 < self.snake_length:
             self.move_body(self.body[index+1], old_position)
 
@@ -73,3 +77,8 @@ class Snake:
 
     def accelerate(self):
         self.delay *= 0.9
+
+    def eats(self):
+        self.get_bigger()
+        if self.snake_length % 5 == 0:
+            self.accelerate()
