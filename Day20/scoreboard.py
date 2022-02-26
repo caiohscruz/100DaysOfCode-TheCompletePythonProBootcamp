@@ -9,6 +9,7 @@ class ScoreBoard(Turtle):
     def __init__(self, screen_height):
         super().__init__()
         top = screen_height / 2 - 20
+        self.penup()
         self.goto(x=0, y=top)
         self.score = -1
         self.hideturtle()
@@ -22,4 +23,5 @@ class ScoreBoard(Turtle):
 
     def game_over(self):
         self.goto(0, 0)
+        self.color("red")
         self.write(f"GAME OVER", align=ALIGNMENT, font=FONT, move=False)
