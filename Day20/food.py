@@ -3,10 +3,10 @@ import random
 
 class Food(Turtle):
 
-    def __init__(self, screen_width, screen_height):
+    def __init__(self, max_x_cor, max_y_cor):
         super().__init__()
-        self.max_x_cor = screen_width / 2 - 20
-        self.max_y_cor = screen_height / 2 - 20
+        self.max_x_cor = max_x_cor
+        self.max_y_cor = max_y_cor
         self.min_x_cor = - self.max_x_cor
         self.min_y_cor = - self.max_y_cor
         self.shape("circle")
