@@ -10,18 +10,21 @@ for i in range(INITIAL_LENGTH):
     y_axis = 0
     starting_positions.append((x_axis, y_axis))
 
-# less delay is more speed
-INITIAL_DELAY = 0.5
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
+
 
 class Snake:
 
-    def __init__(self, screen):
-        self.screen = screen
+    def __init__(self, initial_delay):
         self.body = []
         self.snake_length = 0
-        self.delay = INITIAL_DELAY
+        self.delay = initial_delay
         for _ in range(INITIAL_LENGTH):
             self.get_bigger()
+        self.head = self.body[0]
         self.set_initial_position()
 
     def get_bigger(self):
@@ -39,34 +42,34 @@ class Snake:
         for i in range(self.snake_length):
             self.body[i].goto(starting_positions[i])
 
-    def move_head(self):
-        head = self.body[0]
-        head_position = head.pos()
-        head.forward(20)
-        self.move_body(self.body[1], head_position)
+    def move(self):
+        time.sleep(self.delay)
+        old_position = self.head.pos()
+        self.head.forward(20)
+        self.move_body(self.body[1], old_position)
 
     def move_body(self, part, new_position):
         index = self.body.index(part)
-        part_position = part.pos()
+        old_position = part.pos()
         part.goto(new_position)
         if index + 1 < self.snake_length:
-            self.move_body(self.body[index+1], part_position)
-
-    def movement(self):
-        while True:
-            self.screen.update()
-            time.sleep(self.delay)
-            self.body[0].left(90)
-            self.move_head()
+            self.move_body(self.body[index+1], old_position)
 
     def heads_up(self):
-        self.body[0].setheading(90)
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
 
     def heads_down(self):
-        self.body[0].setheading(270)
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
 
     def heads_right(self):
-        self.body[0].setheading(0)
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)
 
     def heads_left(self):
-        self.body[0].setheading(180)
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
+
+    def accelerate(self):
+        self.delay *= 0.9

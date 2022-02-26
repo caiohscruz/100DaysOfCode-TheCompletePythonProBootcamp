@@ -1,7 +1,8 @@
 from turtle import Screen
 from Snake import Snake
 
-
+# less delay is more speed
+INITIAL_DELAY = 0.5
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -9,16 +10,16 @@ screen.bgcolor("black")
 screen.title("Snake Game")
 screen.tracer(0)
 
-snake = Snake(screen)
-snake.movement()
+snake = Snake(INITIAL_DELAY)
 
-def move_up():
-    snake.heads_up()
-
-screen.onkey(key='Up', fun=move_up)
-screen.onkey(key='right', fun=snake.heads_right)
-screen.onkey(key='down', fun=snake.heads_down)
-screen.onkey(key='left', fun=snake.heads_left)
 screen.listen()
+screen.onkeypress(snake.heads_up, "Up")
+screen.onkeypress(snake.heads_right, "Right")
+screen.onkeypress(snake.heads_down, "Down")
+screen.onkeypress(snake.heads_left, "Left")
+
+while True:
+    screen.update()
+    snake.move()
 
 screen.exitonclick()
