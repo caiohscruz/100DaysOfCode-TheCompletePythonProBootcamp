@@ -52,6 +52,13 @@ def is_out(head):
     return False
 
 
+def has_collisions(snake):
+    for index in range(1, snake.snake_length):
+        if snake.head.distance(snake.body[index]) < 10:
+            return True
+    return False
+
+
 is_game_over = False
 
 draw_borders()
@@ -63,9 +70,8 @@ while not is_game_over:
         snake.eats()
         scoreboard.update_score()
         food.refresh_position()
-    if is_out(snake.head):
+    if is_out(snake.head) or has_collisions(snake):
         scoreboard.game_over()
         is_game_over = True
-
 
 screen.exitonclick()
