@@ -41,8 +41,8 @@ draw_finish_line(FINISH_LINE_XCOR, SCREEN_HEIGHT)
 for number in range(0, num_turtles):
     racer = NamedTurtle(color=colors[number], name=names[number])
     starting_point_ycor = - SCREEN_HEIGHT / 2 + (number + 1) * space_between
-    racer.turtle.setpos(x=STARTING_POINT_XCOR, y=starting_point_ycor)
-    racer.turtle.write(racer.name, False, align="right")
+    racer.set_position(x=STARTING_POINT_XCOR, y=starting_point_ycor)
+    racer.write_name()
     all_turtles.append(racer)
 
 game_is_over = False

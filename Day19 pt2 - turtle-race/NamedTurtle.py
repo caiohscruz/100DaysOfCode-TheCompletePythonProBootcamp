@@ -11,3 +11,8 @@ class NamedTurtle:
         self.turtle.penup()
         self.position = 0
 
+    def set_position(self, x, y):
+        self.turtle.setpos(x, y)
+
+    def write_name(self):
+        self.turtle.write(self.name, False, align="right")
