@@ -1,6 +1,7 @@
 from turtle import Screen
-from Snake import Snake
-from Food import Food
+from snake import Snake
+from food import Food
+from scoreboard import ScoreBoard
 
 # less delay is more speed
 INITIAL_DELAY = 0.3
@@ -17,6 +18,7 @@ screen.tracer(0)
 
 snake = Snake(INITIAL_DELAY)
 food = Food(SCREEN_WIDTH, SCREEN_HEIGHT)
+scoreboard = ScoreBoard(SCREEN_HEIGHT)
 
 screen.listen()
 screen.onkeypress(snake.heads_up, "Up")
@@ -29,6 +31,7 @@ while True:
     snake.move()
     if snake.head.distance(food) < 10:
         snake.eats()
+        scoreboard.update_score()
         food.refresh_position()
 
 screen.exitonclick()
