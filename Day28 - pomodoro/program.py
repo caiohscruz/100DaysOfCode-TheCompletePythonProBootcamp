@@ -11,15 +11,25 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
+timer = None
+
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 
+def reset_timer():
+    global timer, reps
+    window.after_cancel(timer)
+    timer = None
+    lbl_text.config(text="Timer", fg=GREEN)
+    canvas.itemconfig(timer_text, text="00:00")
+    lbl_check.config(text="")
+    reps = 0
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
 def work_time():
-    lbl_text.config(text="It's Work Time!",fg=GREEN)
+    lbl_text.config(text="It's Work Time!", fg=GREEN)
     count_down(WORK_MIN)
 
 
@@ -53,9 +63,14 @@ def count_down(count):
     seconds = count % 60
     canvas.itemconfig(timer_text, text=f"{minutes:02d}:{seconds:02d}")
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        global timer
+        timer = window.after(1000, count_down, count - 1)
     else:
-        start_timer()# ---------------------------- UI SETUP ------------------------------- #
+        start_timer()
+
+
+# ---------------------------- UI SETUP ------------------------------- #
+
 window = tk.Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
@@ -72,7 +87,7 @@ lbl_text.grid(column=1, row=0)
 btn_start = tk.Button(text="Start", command=start_timer)
 btn_start.grid(column=0, row=2)
 
-btn_reset = tk.Button(text="Reset")
+btn_reset = tk.Button(text="Reset", command=reset_timer)
 btn_reset.grid(column=2, row=2)
 
 lbl_check = tk.Label(text="", font=(FONT_NAME, 15, "bold"), fg=GREEN, bg=YELLOW)
