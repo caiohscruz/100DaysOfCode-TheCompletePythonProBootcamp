@@ -12,5 +12,5 @@ nato_dictionary = {row.letter: row.code for (index, row) in nato_dataframe.iterr
 
 # TODO 2. Create a list of the phonetic code words from a word that the user inputs.
 user_input = input("Type a word: ").upper()
-transcription = [nato_dictionary[letterp] for letter in user_input]
+transcription = [nato_dictionary[letter] for letter in user_input]
 print(transcription)
