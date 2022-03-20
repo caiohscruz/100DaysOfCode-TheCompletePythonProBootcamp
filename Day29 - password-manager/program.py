@@ -1,4 +1,5 @@
 import tkinter as tk
+import pandas as pd
 
 
 # ------------------------------------------ PASSWORD GENERATOR ------------------------------------------ #
@@ -10,7 +11,22 @@ def generate_password():
 
 
 def save_password():
-    return True;
+    data = pd.read_csv("pass.csv")
+
+    website = input_website.get()
+    identifier = input_id.get()
+    password = input_password.get()
+
+    data.drop(data.loc[(data['website'] == website) & (data['id'] == identifier)].index, inplace=True)
+
+    register = pd.DataFrame({'website': [website], 'id': [identifier], 'password': [password]})
+    data = pd.concat([data, register])
+    print(data)
+
+    data.to_csv('pass.csv', index=False)
+
+    input_website.delete(0, 'end')
+    input_password.delete(0, 'end')
 
 # ------------------------------------------ UI SETUP ------------------------------------------ #
 
@@ -28,9 +44,11 @@ canvas.grid(column=1, row=0)
 
 input_website = tk.Entry(width=51)
 input_website.grid(column=1, row=1, columnspan=2)
+input_website.focus()
 
 input_id = tk.Entry(width=51)
 input_id.grid(column=1, row=2, columnspan=2)
+input_id.insert(0, "teste@teste.com")
 
 input_password = tk.Entry(width=33)
 input_password.grid(column=1, row=3)
