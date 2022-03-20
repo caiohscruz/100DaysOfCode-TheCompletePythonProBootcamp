@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import pandas as pd
 
 
@@ -10,23 +11,55 @@ def generate_password():
 # ------------------------------------------ SAVE PASSWORD ------------------------------------------ #
 
 
+FILE_NAME = "pass.csv"
+
+
 def save_password():
-    data = pd.read_csv("pass.csv")
+    data = pd.read_csv(FILE_NAME)
 
     website = input_website.get()
     identifier = input_id.get()
     password = input_password.get()
 
-    data.drop(data.loc[(data['website'] == website) & (data['id'] == identifier)].index, inplace=True)
+    if has_empty_input(website, identifier, password):
+        messagebox.showwarning(title="Oooops", message="Please don't leave any fields empty!")
+        return
 
-    register = pd.DataFrame({'website': [website], 'id': [identifier], 'password': [password]})
-    data = pd.concat([data, register])
+    if register_exists(data, website, identifier):
+        want_update = messagebox.askokcancel(title="Attention", message="Register already exists. Update?")
+        if want_update:
+            remove_previous_register(data, website, identifier)
+        else:
+            messagebox.showinfo(title="Attention", message="Changes not executed")
+            return
+
+    data = add_register(data, website, identifier, password)
     print(data)
 
-    data.to_csv('pass.csv', index=False)
+    data.to_csv(FILE_NAME, index=False)
+
+    messagebox.showinfo(title="Attention", message="Password was saved")
 
     input_website.delete(0, 'end')
     input_password.delete(0, 'end')
+
+
+def has_empty_input(website, identifier, password):
+    return (website == "") or (identifier == "") or (password == "")
+
+
+def register_exists(df, website, identifier):
+    search = df[(df['website'] == website) & (df['id'] == identifier)]
+    return len(search) > 0
+
+
+def remove_previous_register(df, website, identifier):
+    df.drop(df.loc[(df['website'] == website) & (df['id'] == identifier)].index, inplace=True)
+
+
+def add_register(df, website, identifier, password):
+    register = pd.DataFrame({'website': [website], 'id': [identifier], 'password': [password]})
+    return pd.concat([df, register])
 
 # ------------------------------------------ UI SETUP ------------------------------------------ #
 
