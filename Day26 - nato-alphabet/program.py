@@ -11,6 +11,19 @@ nato_dictionary = {row.letter: row.code for (index, row) in nato_dataframe.iterr
 # print(nato_dictionary)
 
 # TODO 2. Create a list of the phonetic code words from a word that the user inputs.
-user_input = input("Type a word: ").upper()
-transcription = [nato_dictionary[letter] for letter in user_input]
-print(transcription)
+
+# TODO 3. Add Exception Treatment
+
+
+def get_nato_transcription():
+    user_input = input("Type a word: ").upper()
+    try:
+        transcription = [nato_dictionary[letter] for letter in user_input]
+    except KeyError:
+        print("Sorry, only letters in the alphabet please.")
+        get_nato_transcription()
+    else:
+        print(transcription)
+
+
+get_nato_transcription()
